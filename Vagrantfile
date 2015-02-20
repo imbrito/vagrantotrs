@@ -26,8 +26,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # setup virtual hostname and provision local IP.
   config.vm.network "private_network", ip: "192.168.33.10"
   config.vm.hostname = "vagrantotrs.dev"
-  config.hostupdater.aliases = %w{www.vagrantotrs.dev}
-  config.hostupdater.remove_on_suspend = true
+  config.hostsupdater.aliases = %w{www.vagrantotrs.dev}
+  config.hostsupdater.remove_on_suspend = true
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -57,7 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
    	# Fix for slow external network connections
    	vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-   	vb.customize ["modifyvm", :id, "--natdnshosproxy1", "on"]
+   	vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
   # View the documentation for the provider you're using for more
