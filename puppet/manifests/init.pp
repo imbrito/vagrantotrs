@@ -10,3 +10,4 @@ class { 'git::install': }
 class { 'curl::install': }
 class { 'mysql::install': }
 class { 'apache2::install': }
+class { 'phpmyadmin::install': }
