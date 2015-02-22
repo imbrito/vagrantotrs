@@ -8,11 +8,6 @@ class php5::install {
             ensure => present,
     }
     
-    exec {'restart-apache2':
-        command =>'/usr/bin/sudo service apache2 restart',
-        require => Exec['create-test-php'],
-    }
-    
     #http://askubuntu.com/questions/181481/how-to-create-files-and-directorys-in-var-www
     exec {'create-test-php':
         command =>'/usr/bin/sudo echo "<?php phpinfo(); ?>" | /usr/bin/sudo tee /var/www/test.php',

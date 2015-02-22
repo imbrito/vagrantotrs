@@ -14,3 +14,8 @@ class { 'phpmyadmin::install': }
 class { 'php5::install': }
 class { 'perl::install': }
 class { 'otrs::install': }
+
+exec {'restart-apache2':
+    command =>'/usr/bin/sudo service apache2 restart',
+    require => [ Exec['create-test-php'], Class['otrs::install'] ],
+}

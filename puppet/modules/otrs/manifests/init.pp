@@ -34,24 +34,33 @@ class otrs::install{
         cwd => '/opt/otrs/Kernel',
         command => '/usr/bin/sudo cp Config.pm.dist Config.pm',
         creates => '/opt/otrs/Kernel/Config.pm',
+        require => Exec['rename-otrs'],
     }
     
     exec {'kernel-config-generic-agent':
         cwd => '/opt/otrs/Kernel/Config',
         command => '/usr/bin/sudo cp GenericAgent.pm.dist GenericAgent.pm',
         creates => '/opt/otrs/Kernel/Config/GenericAgent.pm',
+        require => Exec['rename-otrs'],
     }
     
     file{'/etc/apache2/sites-available/otrs.conf':
         ensure => link,
         target => '/opt/otrs/scripts/apache2-httpd.include.conf',
-        require => Package['apache2'],
-        notify => Service['apache2'],
+        require => [ Package['apache2'], Exec['rename-otrs'] ],
+    }
+    
+    file{'/etc/apache2/sites-enabled/otrs':
+        ensure => link,
+        target => '/etc/apache2/sites-available/otrs.conf',
+        require => [ Package['apache2'], Exec['rename-otrs'] ],
     }
     
     exec {'set-permissions':
         cwd => '/opt/otrs/bin',
-        command => '/usr/bin/sudo perl otrs.SetPermissions.pl --web-user=otrs --web-group=www-data',
+        command => '/usr/bin/sudo perl otrs.SetPermissions.pl --otrs-user=otrs --web-group=www-data',
+        creates => '/etc/apache2/sites-available/otrs.conf',
     }
+
 
 }
