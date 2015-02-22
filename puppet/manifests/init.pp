@@ -12,3 +12,4 @@ class { 'mysql::install': }
 class { 'apache2::install': }
 class { 'phpmyadmin::install': }
 class { 'php5::install': }
+class { 'perl::install': }
