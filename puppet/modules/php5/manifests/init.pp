@@ -16,6 +16,7 @@ class php5::install {
     #http://askubuntu.com/questions/181481/how-to-create-files-and-directorys-in-var-www
     exec {'create-test-php':
         command =>'/usr/bin/sudo echo "<?php phpinfo(); ?>" | /usr/bin/sudo tee /var/www/test.php',
+        creates => '/var/www/test.php',
         require => Package['apache2'],
     }
 }
