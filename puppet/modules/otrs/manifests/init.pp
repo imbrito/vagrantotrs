@@ -21,5 +21,37 @@ class otrs::install{
         creates => '/opt/otrs',
         require => Exec['untar-otrs'],
     }
+    
+    user {'otrs':
+        ensure => present,
+        shell => '/bin/bash',
+        home => '/opt/otrs',
+        groups => ['www-data'],
+        managehome => true,
+    }
+    
+    exec {'kernel-config':
+        cwd => '/opt/otrs/Kernel',
+        command => '/usr/bin/sudo cp Config.pm.dist Config.pm',
+        creates => '/opt/otrs/Kernel/Config.pm',
+    }
+    
+    exec {'kernel-config-generic-agent':
+        cwd => '/opt/otrs/Kernel/Config',
+        command => '/usr/bin/sudo cp GenericAgent.pm.dist GenericAgent.pm',
+        creates => '/opt/otrs/Kernel/Config/GenericAgent.pm',
+    }
+    
+    file{'/etc/apache2/sites-available/otrs.conf':
+        ensure => link,
+        target => '/opt/otrs/scripts/apache2-httpd.include.conf',
+        require => Package['apache2'],
+        notify => Service['apache2'],
+    }
+    
+    exec {'set-permissions':
+        cwd => '/opt/otrs/bin',
+        command => '/usr/bin/sudo perl otrs.SetPermissions.pl --web-user=otrs --web-group=www-data',
+    }
 
 }
