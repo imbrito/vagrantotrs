@@ -1,4 +1,4 @@
-exec { 'apt_update':
+exec { 'apt-update':
     command => 'apt-get update',
     path => '/usr/bin'
 }
@@ -16,6 +16,6 @@ class { 'perl::install': }
 class { 'otrs::install': }
 
 exec {'restart-apache2':
-    command =>'/usr/bin/sudo service apache2 restart',
-    require => [ Exec['create-test-php'], Class['otrs::install'] ],
+    command => '/usr/bin/sudo service apache2 restart',
+    require => [ Package['apache2'], Class[ 'otrs::install', 'perl::install', 'php5::install', 'mysql::install' ] ],
 }
