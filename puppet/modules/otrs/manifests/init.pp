@@ -34,14 +34,14 @@ class otrs::install{
         cwd => '/opt/otrs/Kernel',
         command => '/usr/bin/sudo cp Config.pm.dist Config.pm',
         creates => '/opt/otrs/Kernel/Config.pm',
-        require => Exec['rename-otrs'],
+        require => [ User['otrs'], Exec['rename-otrs'] ],
     }
     
     exec {'kernel-config-generic-agent':
         cwd => '/opt/otrs/Kernel/Config',
         command => '/usr/bin/sudo cp GenericAgent.pm.dist GenericAgent.pm',
         creates => '/opt/otrs/Kernel/Config/GenericAgent.pm',
-        require => Exec['rename-otrs'],
+        require => [ User['otrs'], Exec['rename-otrs'] ],
     }
     
     file {'/etc/apache2/sites-enabled/otrs':
@@ -54,7 +54,7 @@ class otrs::install{
         cwd => '/opt/otrs/bin',
         command => '/usr/bin/sudo perl otrs.SetPermissions.pl --otrs-user=otrs --web-group=www-data',
         creates => '/etc/apache2/sites-enabled/otrs',
-        require => User['otrs'],
+        require => [ User['otrs'], Exec[ 'kernel-config', 'kernel-config-generic-agent' ] ],
     }
     
     exec {'aaa_base-cronjob':
