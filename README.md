@@ -30,7 +30,7 @@ The procedure for starting up a working OTRS 4.0.4 is as follows:
 + For install Support (Ubuntu Precise x86)
 
 1. Clone the project.  (There’s only master branch.)
-2. Run `sudo chmod -x vagrantotrs/scripts/setup.sh` from command line
+2. Run `sudo vagrantotrs/scripts/setup.sh` from command line
 3. Run the command `vagrant up` from the directory
 4. Open your browser to `http://vagrantotrs.dev/otrs/installer.pl` and install OTRS 4.0.4
 
