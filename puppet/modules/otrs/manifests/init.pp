@@ -65,84 +65,83 @@ class cronjobs::install{
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp cache.dist cache',
         creates => '/opt/otrs/var/cron/cache',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'fetchmail-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp fetchmail.dist fetchmail',
         creates => '/opt/otrs/var/cron/fetchmail',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'generate_dashboard_stats-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp generate_dashboard_stats.dist generate_dashboard_stats',
         creates => '/opt/otrs/var/cron/generate_dashboard_stats',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'generic_agent-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp generic_agent.dist generic_agent',
         creates => '/opt/otrs/var/cron/generic_agent',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'generic_agent-database-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp generic_agent-database.dist generic_agent-database',
         creates => '/opt/otrs/var/cron/generic_agent-database',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'pending_jobs-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp pending_jobs.dist pending_jobs',
         creates => '/opt/otrs/var/cron/pending_jobs',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'postmaster-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp postmaster.dist postmaster',
         creates => '/opt/otrs/var/cron/postmaster',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'postmaster_mailbox-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp postmaster_mailbox.dist postmaster_mailbox',
         creates => '/opt/otrs/var/cron/postmaster_mailbox',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'rebuild_ticket_index-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp rebuild_ticket_index.dist rebuild_ticket_index',
         creates => '/opt/otrs/var/cron/rebuild_ticket_index',
-        require => [ User['otrs'],
-    }
-    
+        require => User['otrs'],
+    }    
     exec {'scheduler_watchdog-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp scheduler_watchdog.dist scheduler_watchdog',
         creates => '/opt/otrs/var/cron/scheduler_watchdog',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'session-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp session.dist session',
         creates => '/opt/otrs/var/cron/session',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'unlock-cronjob':
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp unlock.dist unlock',
         creates => '/opt/otrs/var/cron/unlock',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'cronjobs-start':
