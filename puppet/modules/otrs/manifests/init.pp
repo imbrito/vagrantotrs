@@ -58,7 +58,7 @@ class cronjobs::install{
         cwd => '/opt/otrs/var/cron',
         command => '/usr/bin/sudo cp aaa_base.dist aaa_base',
         creates => '/opt/otrs/var/cron/aaa_base',
-        require => [ User['otrs'],
+        require => User['otrs'],
     }
     
     exec {'cache-cronjob':
