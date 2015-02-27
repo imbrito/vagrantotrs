@@ -12,7 +12,7 @@ class otrs::install{
         cwd => '/opt',
         command => '/usr/bin/sudo mv otrs-4.0.4 otrs',
         creates => '/opt/otrs',
-        before => [ User['otrs'], Exec[ 'kernel-config','kernel-config', 'kernel-config-generic-agent' ] ],
+        before => [ User['otrs'], Exec[ 'kernel-config', 'kernel-config-generic-agent' ] ],
         require => Exec['download-otrs'],
     }
     
