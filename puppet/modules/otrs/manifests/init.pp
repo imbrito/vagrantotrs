@@ -12,8 +12,15 @@ class otrs::install{
         cwd => '/opt',
         command => '/usr/bin/sudo mv otrs-4.0.4 otrs',
         creates => '/opt/otrs',
-        before => [ User['otrs'], Exec[ 'kernel-config', 'kernel-config-generic-agent' ] ],
+        before => [ User['otrs'], Exec[ 'kernel-config', 'kernel-config-generic-agent', 'mkdir-packages4' ] ],
         require => Exec['download-otrs'],
+    }
+    
+    exec {'mkdir-packages4':
+        cwd => '/opt/otrs',
+        command => '/usr/bin/sudo mkdir packages4',
+        creates => '/opt/otrs/packages4',
+        require => Exec ['rename-otrs'],
     }
     
     user {'otrs':
@@ -49,6 +56,26 @@ class otrs::install{
         command => '/usr/bin/sudo perl otrs.SetPermissions.pl --otrs-user=otrs --web-group=www-data',
         creates => '/etc/apache2/sites-enabled/otrs',
         require => [ User['otrs'], Exec[ 'kernel-config', 'kernel-config-generic-agent' ] ],
+    }
+    
+    file {'/opt/otrs/packages4/GeneralCatalog-4.0.4.opm':
+        source => '/vagrant/files/GeneralCatalog-4.0.4.opm',
+        require => [ User['otrs'], Exec[ 'mkdir-packages4' ] ],
+    }
+
+    file {'/opt/otrs/packages4/ITSMCore-4.0.4.opm':
+        source => '/vagrant/files/ITSMCore-4.0.4.opm',
+        require => [ User['otrs'], Exec[ 'mkdir-packages4' ] ],
+    }
+
+    file {'/opt/otrs/packages4/ITSMChangeManagement-4.0.4.opm':
+        source => '/vagrant/files/ITSMChangeManagement-4.0.4.opm',
+        require => [ User['otrs'], Exec[ 'mkdir-packages4' ] ],
+    }
+    
+    file {'/opt/otrs/packages4/install.sh':
+        source => '/vagrant/scripts/install_change_management.sh',
+        require => [ User['otrs'], Exec[ 'mkdir-packages4' ] ],
     }
     
 }
