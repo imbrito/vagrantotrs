@@ -33,12 +33,14 @@ The procedure for starting up a working OTRS 4.0.4 is as follows:
 2. Run `sudo vagrantotrs/scripts/setup.sh` from command line
 3. Run the command `vagrant up` from the directory
 4. Open your browser to `http://vagrantotrs.dev/otrs/installer.pl` and install OTRS 4.0.4
+5. After installation OTRS 4.0.4, access to VM and run `sudo /opt/otrs/packages4/install.sh` from command line
 
 + If installed Support
 
 1. Clone the project.  (There’s only master branch.)
 2. Run the command `vagrant up` from the directory
 3. Open your browser to `http://vagrantotrs.dev/otrs/installer.pl` and install OTRS 4.0.4
+4. After installation OTRS 4.0.4, access to VM and run `sudo /opt/otrs/packages4/install.sh` from command line
 
 + Access to VM
 
